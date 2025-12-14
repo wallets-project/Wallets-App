@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   FieldWidget(
                     label: 'Password',
                     controller: passwordController,
-                    hintText: '',
+                    hintText: '••••••••',
                     isPassword: true,
                     prefixIcon: Icons.lock,
                     keyboardType: TextInputType.visiblePassword,
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 24.h),
 
                   MyButton(
-                    text: state.isLoading ? 'Loading....' : 'Sign In',
+                    text: state.isLoading ? 'Loading . . .' : 'Sign In',
                     // Disable the button while loading; otherwise trigger login directly.
                     onPressed: state.isLoading
                         ? null
