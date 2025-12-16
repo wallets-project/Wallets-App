@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wallets/core/di/service_locator.dart';
 import 'package:wallets/core/helper/extensions.dart';
 import 'package:wallets/core/routing/route.dart';
 import 'package:wallets/core/theming/colors.dart';
@@ -13,13 +12,6 @@ import 'package:wallets/features/auth/logic/register/cubit/register_state.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
-
-  static Widget blocProvider() {
-    return BlocProvider(
-      create: (_) => getIt<RegisterCubit>(),
-      child: const RegisterScreen(),
-    );
-  }
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -45,7 +37,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state.isSuccess) {
-          context.pushReplacementNamed(Routes.otpScreen);
+          context.pushReplacementNamed(
+            Routes.otpScreen,
+            arguments: phoneController.text.trim(),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('تم التسجيل بنجاح يرجى تفيعل الحساب')),
+          );
         }
         if (state.erorrMesseage != null) {
           ScaffoldMessenger.of(
@@ -123,13 +121,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     text: state.isLoading ? 'Loding . . .' : 'Sign Up',
                     onPressed: state.isLoading
                         ? null
-                        : () => context.read<RegisterCubit>().register(
-                            nameController.text.trim(),
-                            phoneController.text.trim(),
-                            passwordController.text.trim(),
-                            emailController.text.trim(),
-                          ),
+                        : () {
+                            context.read<RegisterCubit>().register(
+                              nameController.text.trim(),
+                              phoneController.text.trim(),
+                              passwordController.text.trim(),
+                              emailController.text.trim(),
+                            );
+                          },
                   ),
+
                   SizedBox(height: 32.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

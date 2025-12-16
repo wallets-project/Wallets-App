@@ -35,6 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         if (state.isSuccess) {
           context.pushReplacementNamed(Routes.homeScreen);
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("تم تسجيل الدخول بنجاح")));
         }
         if (state.errorMessage != null) {
           ScaffoldMessenger.of(

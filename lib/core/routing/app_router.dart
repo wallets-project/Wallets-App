@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wallets/core/di/service_locator.dart';
 import 'package:wallets/core/routing/route.dart';
 import 'package:wallets/features/auth/logic/login/cubit/login_cubit.dart';
+import 'package:wallets/features/auth/logic/otp/cubit/otp_cubit.dart';
+import 'package:wallets/features/auth/logic/register/cubit/register_cubit.dart';
 import 'package:wallets/features/auth/ui/login/login_screen.dart';
 import 'package:wallets/features/get_start/ui/get_start_screen.dart';
 import 'package:wallets/features/home/ui/home_screen.dart';
@@ -28,12 +30,21 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => const GetStartScreen());
       case Routes.registerScreen:
         return MaterialPageRoute(
-          builder: (context) => RegisterScreen.blocProvider(),
+          builder: (context) => BlocProvider(
+            create: (_) => getIt<RegisterCubit>(),
+            child: const RegisterScreen(),
+          ),
         );
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context) => const HomeScreen());
       case Routes.otpScreen:
-        return MaterialPageRoute(builder: (context) => const OtpScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<OtpCubit>(),
+            child: const OtpScreen(),
+          ),
+          settings: settings,
+        );
       default:
         return MaterialPageRoute(
           builder: (context) => const Center(child: Text('404 Not Found')),
