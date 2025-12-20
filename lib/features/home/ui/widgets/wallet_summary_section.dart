@@ -43,7 +43,7 @@ class WalletSummarySection extends StatelessWidget {
       ),
       child: Padding(
         padding:
-            padding ?? EdgeInsets.symmetric(horizontal: 24.h, vertical: 24.w),
+            padding ?? EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
         child: Column(
           children: [
             WalletSummaryHeader(
@@ -53,14 +53,25 @@ class WalletSummarySection extends StatelessWidget {
               onTapIcon: onTapIcon,
             ),
             SizedBox(height: 24.h),
-            ...cards.map(
-              (c) => Padding(
-                padding: EdgeInsets.only(bottom: 12.h),
-                child: WalletBalanceCard(
-                  currencyCode: c.currencyCode,
-                  amountText: c.amountText,
-                  icon: c.icon,
-                ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              child: Row(
+                children: cards
+                    .map(
+                      (c) => Padding(
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: SizedBox(
+                          width: 300.w,
+                          child: WalletBalanceCard(
+                            currencyCode: c.currencyCode,
+                            amountText: c.amountText,
+                            icon: c.icon,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ],

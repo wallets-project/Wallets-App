@@ -9,6 +9,7 @@ import 'package:wallets/features/auth/ui/login/login_screen.dart';
 import 'package:wallets/features/get_start/ui/get_start_screen.dart';
 import 'package:wallets/features/home/logic/cubit/home_cubit.dart';
 import 'package:wallets/features/home/ui/home_screen.dart';
+import 'package:wallets/features/transaction_history/ui/transaction_history_screen.dart';
 import 'package:wallets/features/onboarding/ui/onboarding_screen.dart';
 import 'package:wallets/features/auth/ui/otp/otp_screen.dart';
 import 'package:wallets/features/auth/ui/register/register_screen.dart';
@@ -40,7 +41,9 @@ class AppRouter {
       case Routes.homeScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => getIt<HomeCubit>()..getWallets(),
+            create: (context) => getIt<HomeCubit>()
+              ..getWallets()
+              ..getAllTransactions(),
             child: const HomeScreen(),
           ),
         );
@@ -57,6 +60,15 @@ class AppRouter {
           builder: (context) => BlocProvider(
             create: (context) => getIt<HomeCubit>()..getWallets(),
             child: const WalletsSCreen(),
+          ),
+        );
+      case Routes.transactionHistoryScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<HomeCubit>()
+              ..getWallets()
+              ..getAllTransactions(),
+            child: const TransactionHistoryScreen(),
           ),
         );
       default:

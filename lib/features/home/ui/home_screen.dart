@@ -6,6 +6,7 @@ import 'package:wallets/core/routing/route.dart';
 import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
 import 'package:wallets/features/home/data/models/wallets_model.dart';
+import 'package:wallets/features/home/data/models/wallet_transactions_model.dart';
 import 'package:wallets/features/home/data/models/wallet_balance_card_data.dart';
 import 'package:wallets/features/home/logic/cubit/home_cubit.dart';
 import 'package:wallets/features/home/logic/cubit/home_state.dart';
@@ -13,6 +14,7 @@ import 'package:wallets/features/home/ui/widgets/appbar_home.dart';
 import 'package:wallets/features/home/ui/widgets/drawer_home.dart';
 import 'package:wallets/features/home/ui/widgets/quick_action_card.dart';
 import 'package:wallets/features/home/ui/widgets/transaction_item_card.dart';
+import 'package:wallets/core/helper/utils/transaction_utils.dart';
 import 'package:wallets/features/home/ui/widgets/wallet_summary_section.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -36,24 +38,27 @@ class HomeScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          if (state.isLoading) {
+          final walletsResponse = state.wallets;
+          final transaction = state.transactions;
+          final hasData = walletsResponse != null || transaction != null;
+
+          if (state.isLoading && !hasData) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // 2) Error (اختياري تعرض صفحة خطأ بدل SnackBar فقط)
-          if (state.errorMessage != null) {
+          if (state.errorMessage != null && !hasData) {
             return Center(child: Text(state.errorMessage!));
           }
 
-          // 3) Data
-          final walletsResponse = state.wallets;
-          if (walletsResponse == null) {
+          if (walletsResponse == null && transaction == null) {
             return const SizedBox.shrink();
           }
 
-          final total = walletsResponse.data?.totalBalanceUSD ?? 0.0;
+          final total = walletsResponse?.data?.totalBalanceUSD ?? 0.0;
           final wallets =
-              walletsResponse.data?.wallets ?? const <WalletsModel>[];
+              walletsResponse?.data?.wallets ?? const <WalletsModel>[];
+          final List<TransactionItem> txs =
+              transaction?.data?.transactions?.data ?? const [];
           final cards = wallets.map((wallet) {
             final currency = wallet.currency ?? '';
             final balance = wallet.balance ?? 0;
@@ -74,7 +79,12 @@ class HomeScreen extends StatelessWidget {
                   totalAmountText: '\$ ${total.toStringAsFixed(2)}',
                   totalIcon: Icons.account_balance_wallet_outlined,
                   cards: cards,
-                  onTapIcon: () => context.pushNamed(Routes.walletsScreen),
+                  onTapIcon: () async {
+                    await context.pushNamed(Routes.walletsScreen);
+                    context.read<HomeCubit>()
+                      ..getWallets()
+                      ..getAllTransactions();
+                  },
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -149,7 +159,11 @@ class HomeScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              context.pushNamed(
+                                Routes.transactionHistoryScreen,
+                              );
+                            },
                             child: Text(
                               'View All',
                               style: TextStyles.orange16SemiBold,
@@ -158,33 +172,37 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 16.h),
-                      TransactionItemCard(
-                        title: 'Top-up',
-                        subtitle: 'Card Top-up',
-                        dateTime: '2025-12-08 14:30',
-                        amountText: '+USD 500.00',
-                        icon: Icons.arrow_outward_rounded,
-                        iconBackgroundColor: ColorsManager.lightGreen.withAlpha(
-                          100,
-                        ),
-                        amountTextStyle: TextStyles.green16Medium,
-                        showStatusIcon: true,
-                        statusIconColor: ColorsManager.lightGreen,
-                      ),
-                      SizedBox(height: 16.h),
-                      TransactionItemCard(
-                        title: 'Top-up',
-                        subtitle: 'Card Top-up',
-                        dateTime: '2025-12-08 14:30',
-                        amountText: '+USD 500.00',
-                        icon: Icons.arrow_outward_rounded,
-                        iconBackgroundColor: ColorsManager.lightGreen.withAlpha(
-                          100,
-                        ),
-                        amountTextStyle: TextStyles.green16Medium,
-                        showStatusIcon: true,
-                        statusIconColor: ColorsManager.lightGreen,
-                      ),
+                      if (txs.isEmpty)
+                        Center(
+                          child: Text(
+                            'No transactions found',
+                            style: TextStyles.gray14,
+                          ),
+                        )
+                      else
+                        ...txs.take(5).map((tx) {
+                          final currency =
+                              transaction?.data?.wallet?.currency ?? '';
+                          final pres = mapTransactionToPresentation(
+                            tx,
+                            currency: currency,
+                          );
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 12.h),
+                            child: TransactionItemCard(
+                              title: pres.title,
+                              subtitle: pres.subtitle,
+                              dateTime: pres.dateText,
+                              amountText: pres.amountText,
+                              icon: pres.icon,
+                              iconBackgroundColor: pres.iconBackgroundColor,
+                              amountTextStyle: pres.amountTextStyle,
+                              showStatusIcon: true,
+                              statusIcon: pres.statusIcon,
+                              statusIconColor: pres.statusIconColor,
+                            ),
+                          );
+                        }),
                     ],
                   ),
                 ),

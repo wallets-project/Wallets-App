@@ -37,30 +37,65 @@ class WalletItemTile extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(21),
-          child: Row(
-            children: [
-              WalletIconCircle(
-                icon: icon,
-                backgroundIcon: iconBg,
-                colorIcon: iconColor,
-              ),
-              SizedBox(width: 16.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Row(
                 children: [
-                  Text(name, style: TextStyles.blue16bold),
-                  Text(code, style: TextStyles.gray16Medium),
+                  WalletIconCircle(
+                    icon: icon,
+                    backgroundIcon: iconBg,
+                    colorIcon: iconColor,
+                  ),
+                  SizedBox(width: 16.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          name,
+                          style: TextStyles.blue16bold,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        Text(
+                          code,
+                          style: TextStyles.gray16Medium,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 12.w),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: constraints.maxWidth * 0.35,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          amountText,
+                          style: TextStyles.blue16bold,
+                          textAlign: TextAlign.end,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        Text(
+                          changeText,
+                          style: TextStyles.green16Medium,
+                          textAlign: TextAlign.end,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
-              ),
-              const Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(amountText, style: TextStyles.blue16bold),
-                  Text(changeText, style: TextStyles.green16Medium),
-                ],
-              ),
-            ],
+              );
+            },
           ),
         ),
       ),

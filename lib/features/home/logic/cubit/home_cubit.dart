@@ -13,11 +13,82 @@ class HomeCubit extends Cubit<HomeState> {
 
     try {
       final wallets = await _homeRepo.getWallets();
-      emit(state.copyWith(isLoading: false, wallets: wallets, errorMessage: null));
+      emit(
+        state.copyWith(isLoading: false, wallets: wallets, errorMessage: null),
+      );
     } on ApiException catch (e) {
       emit(state.copyWith(isLoading: false, errorMessage: e.message));
     } catch (_) {
-      emit(state.copyWith(isLoading: false, errorMessage: 'حدث خطأ غير متوقع'));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          errorMessage: 'Unexpected error, please try again',
+        ),
+      );
+    }
+  }
+
+  Future<void> createWallets({
+    required String type,
+    required String currency,
+  }) async {
+    emit(state.copyWith(isLoading: true, errorMessage: null));
+    try {
+      final created = await _homeRepo.createWallets(
+        type: type,
+        currency: currency,
+      );
+      if (created.status == false) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: created.message ?? 'Wallet creation failed',
+          ),
+        );
+        return;
+      }
+      // Refresh to show the new wallet instantly
+      final refreshed = await _homeRepo.getWallets();
+      emit(
+        state.copyWith(
+          isLoading: false,
+          wallets: refreshed,
+          errorMessage: null,
+        ),
+      );
+    } on ApiException catch (e) {
+      emit(state.copyWith(isLoading: false, errorMessage: e.message));
+    } catch (_) {
+      emit(
+        state.copyWith(
+          isLoading: false,
+          errorMessage: 'Unexpected error, please try again',
+        ),
+      );
+    }
+  }
+
+  Future<void> getAllTransactions() async {
+    emit(state.copyWith(isLoading: true, errorMessage: null));
+
+    try {
+      final tx = await _homeRepo.getAllTransactions();
+      emit(
+        state.copyWith(
+          isLoading: false,
+          transactions: tx,
+          errorMessage: null,
+        ),
+      );
+    } on ApiException catch (e) {
+      emit(state.copyWith(isLoading: false, errorMessage: e.message));
+    } catch (_) {
+      emit(
+        state.copyWith(
+          isLoading: false,
+          errorMessage: 'Unexpected error, please try again',
+        ),
+      );
     }
   }
 }

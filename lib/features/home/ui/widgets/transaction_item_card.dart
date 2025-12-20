@@ -10,11 +10,9 @@ class TransactionItemCard extends StatelessWidget {
     required this.subtitle,
     required this.dateTime,
     required this.amountText,
-
     required this.icon,
     required this.iconBackgroundColor,
     required this.amountTextStyle,
-
     this.showStatusIcon = false,
     this.statusIcon,
     this.statusIconColor,
@@ -39,14 +37,23 @@ class TransactionItemCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       padding: const EdgeInsets.all(16),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          WalletIconCircle(icon: icon, backgroundIcon: iconBackgroundColor),
-          SizedBox(width: 16.w),
-
-          /// Texts
+          WalletIconCircle(
+            icon: icon,
+            backgroundIcon: iconBackgroundColor,
+          ),
+          SizedBox(width: 12.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,15 +64,34 @@ class TransactionItemCard extends StatelessWidget {
                   statusIcon: statusIcon,
                   statusIconColor: statusIconColor,
                 ),
+                const SizedBox(height: 6),
+                Text(
+                  subtitle,
+                  style: TextStyles.gray14,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 const SizedBox(height: 4),
-                Text(subtitle, style: TextStyles.gray16Medium),
-                Text(dateTime, style: TextStyles.gray16Medium),
+                Text(
+                  dateTime,
+                  style: TextStyles.gray14,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ],
             ),
           ),
-
-          /// Amount
-          Text(amountText, style: amountTextStyle),
+          SizedBox(width: 12.w),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                amountText,
+                style: amountTextStyle,
+                textAlign: TextAlign.end,
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -89,9 +115,16 @@ class _TitleRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(title, style: TextStyles.black16Bold),
+        Expanded(
+          child: Text(
+            title,
+            style: TextStyles.black16Bold,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         if (showStatusIcon) ...[
-          const SizedBox(width: 4),
+          const SizedBox(width: 6),
           Icon(
             statusIcon ?? Icons.check_circle_outline,
             size: 18,
