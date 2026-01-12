@@ -13,6 +13,9 @@ import 'package:wallets/features/transaction_history/ui/transaction_history_scre
 import 'package:wallets/features/onboarding/ui/onboarding_screen.dart';
 import 'package:wallets/features/auth/ui/otp/otp_screen.dart';
 import 'package:wallets/features/auth/ui/register/register_screen.dart';
+import 'package:wallets/features/transfer/logic/cubit/transfer_cubit.dart';
+import 'package:wallets/features/transfer/ui/teansfer_screen.dart';
+import 'package:wallets/features/wallets/models/wallet_item.dart';
 import 'package:wallets/features/wallets/ui/wallets_screen.dart';
 
 class AppRouter {
@@ -29,6 +32,7 @@ class AppRouter {
             child: const LoginScreen(),
           ),
         );
+
       case Routes.getStartScreen:
         return MaterialPageRoute(builder: (context) => const GetStartScreen());
       case Routes.registerScreen:
@@ -69,6 +73,15 @@ class AppRouter {
               ..getWallets()
               ..getAllTransactions(),
             child: const TransactionHistoryScreen(),
+          ),
+        );
+      case Routes.transferScreen:
+        final walletItems =
+            (settings.arguments as List<WalletItem>?) ?? const [];
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (_) => getIt<TransferCubit>(),
+            child: TransferScreen(wallets: walletItems),
           ),
         );
       default:

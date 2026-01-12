@@ -33,7 +33,7 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.user != null) {
+    if (user != null) {
       data['user'] = user!.toJson();
     }
     return data;
@@ -81,18 +81,18 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['email_verified_at'] = this.emailVerifiedAt;
-    data['phone_verified_at'] = this.phoneVerifiedAt;
-    data['password'] = this.password;
-    data['status'] = this.status;
-    data['remember_token'] = this.rememberToken;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['phone'] = phone;
+    data['email'] = email;
+    data['email_verified_at'] = emailVerifiedAt;
+    data['phone_verified_at'] = phoneVerifiedAt;
+    data['password'] = password;
+    data['status'] = status;
+    data['remember_token'] = rememberToken;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }

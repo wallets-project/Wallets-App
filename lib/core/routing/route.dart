@@ -10,4 +10,6 @@ class Routes {
   static const String otpScreen = '/otpScreen';
   static const String walletsScreen = '/walletsScreen';
   static const String transactionHistoryScreen = '/transactionHistoryScreen';
+    static const String transferScreen = '/transferScreen';
+
 }

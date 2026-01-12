@@ -13,6 +13,9 @@ import 'package:wallets/features/auth/logic/register/cubit/register_cubit.dart';
 import 'package:wallets/features/home/data/repo/home_repo.dart';
 import 'package:wallets/features/home/data/repo/home_repo_impl.dart';
 import 'package:wallets/features/home/logic/cubit/home_cubit.dart';
+import 'package:wallets/features/transfer/data/repo/transfer_repo.dart';
+import 'package:wallets/features/transfer/data/repo/transfer_repo_impl.dart';
+import 'package:wallets/features/transfer/logic/cubit/transfer_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -42,10 +45,12 @@ Future<void> setupServiceLocator() async {
     AuthRepoImpl(getIt<UserStorage>(), api: getIt(), tokenStorage: getIt()),
   );
   getIt.registerSingleton<HomeRepo>(HomeRepoImpl(getIt()));
+  getIt.registerLazySingleton<TransferRepo>(() => TransferRepoImpl(getIt()));
 
   // 6) Cubits (factory)
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
   getIt.registerFactory<OtpCubit>(() => OtpCubit(getIt()));
   getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
+  getIt.registerFactory<TransferCubit>(() => TransferCubit(getIt()));
 }

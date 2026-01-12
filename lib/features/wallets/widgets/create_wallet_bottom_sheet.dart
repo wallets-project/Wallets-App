@@ -99,7 +99,7 @@ class _CreateWalletBottomSheetState extends State<CreateWalletBottomSheet> {
                       ),
                       const SizedBox(height: 18),
                       DropdownButtonFormField<String>(
-                        value: _currency,
+                        initialValue: _currency,
                         items: const [
                           DropdownMenuItem(value: 'USD', child: Text('USD')),
                           DropdownMenuItem(value: 'EUR', child: Text('EUR')),

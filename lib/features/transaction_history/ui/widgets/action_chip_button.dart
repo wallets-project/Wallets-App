@@ -5,7 +5,7 @@ import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
 
 class ActionChipButton extends StatelessWidget {
-  const ActionChipButton({
+  const ActionChipButton({super.key, 
     required this.icon,
     required this.label,
     this.onTap,

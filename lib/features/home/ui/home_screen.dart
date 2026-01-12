@@ -16,6 +16,7 @@ import 'package:wallets/features/home/ui/widgets/quick_action_card.dart';
 import 'package:wallets/features/home/ui/widgets/transaction_item_card.dart';
 import 'package:wallets/core/helper/utils/transaction_utils.dart';
 import 'package:wallets/features/home/ui/widgets/wallet_summary_section.dart';
+import 'package:wallets/features/wallets/models/wallet_item.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -57,6 +58,7 @@ class HomeScreen extends StatelessWidget {
           final total = walletsResponse?.data?.totalBalanceUSD ?? 0.0;
           final wallets =
               walletsResponse?.data?.wallets ?? const <WalletsModel>[];
+          final transferWalletItems = _mapWalletModelsToItems(wallets);
           final List<TransactionItem> txs =
               transaction?.data?.transactions?.data ?? const [];
           final cards = wallets.map((wallet) {
@@ -116,6 +118,10 @@ class HomeScreen extends StatelessWidget {
                             textStyle: TextStyles.black16Bold,
                             iconBackgroundColor: ColorsManager.orange.withAlpha(
                               100,
+                            ),
+                            onTap: () => context.pushNamed(
+                              Routes.transferScreen,
+                              arguments: transferWalletItems,
                             ),
                             iconColor: ColorsManager.orange,
                           ),
@@ -212,5 +218,35 @@ class HomeScreen extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+List<WalletItem> _mapWalletModelsToItems(List<WalletsModel> wallets) {
+  return wallets.map((wallet) {
+    final currencyCode = wallet.currency ?? '';
+    return WalletItem(
+      id: wallet.id ?? 0,
+      currencyCode: currencyCode,
+      balance: wallet.balance ?? 0,
+      symbol: _currencySymbolFor(currencyCode),
+    );
+  }).toList();
+}
+
+String _currencySymbolFor(String currencyCode) {
+  switch (currencyCode.toUpperCase()) {
+    case 'USD':
+    case '200':
+      return '\$';
+    case 'EUR':
+      return '€';
+    case 'GBP':
+      return '£';
+    case 'SAR':
+      return '﷼';
+    case 'JOD':
+      return 'JD';
+    default:
+      return currencyCode;
   }
 }

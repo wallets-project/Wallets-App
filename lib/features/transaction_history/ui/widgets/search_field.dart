@@ -4,7 +4,7 @@ import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({
+  const SearchField({super.key, 
     required this.controller,
     required this.hintText,
     this.onChanged,
