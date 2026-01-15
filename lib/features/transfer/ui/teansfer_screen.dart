@@ -7,7 +7,7 @@ import 'package:wallets/core/widgets/my_button.dart';
 import 'package:wallets/core/widgets/wallet_selector_card.dart';
 import 'package:wallets/features/transfer/logic/cubit/transfer_cubit.dart';
 import 'package:wallets/features/transfer/logic/cubit/transfer_state.dart';
-import 'package:wallets/features/transfer/ui/widgets/amount_section_card.dart';
+import 'package:wallets/core/widgets/amount_section_card.dart';
 import 'package:wallets/features/transfer/ui/widgets/note_section_card.dart';
 import 'package:wallets/features/transfer/ui/widgets/recipient_section_card.dart';
 import 'package:wallets/features/wallets/models/wallet_item.dart';

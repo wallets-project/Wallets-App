@@ -128,7 +128,7 @@ class WalletsSCreen extends StatelessWidget {
               content,
               Positioned.fill(
                 child: Container(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   alignment: Alignment.center,
                   child: const CircularProgressIndicator(),
                 ),

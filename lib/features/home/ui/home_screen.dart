@@ -83,6 +83,9 @@ class HomeScreen extends StatelessWidget {
                   cards: cards,
                   onTapIcon: () async {
                     await context.pushNamed(Routes.walletsScreen);
+                    if (!context.mounted) {
+                      return;
+                    }
                     context.read<HomeCubit>()
                       ..getWallets()
                       ..getAllTransactions();
@@ -101,6 +104,7 @@ class HomeScreen extends StatelessWidget {
                       QuickActionCard(
                         title: 'Top Up',
                         icon: Icons.arrow_circle_up_rounded,
+                        onTap: () => context.pushNamed(Routes.topupScreen),
                       ),
                       SizedBox(height: 16.h),
                       GridView.count(
@@ -119,10 +123,20 @@ class HomeScreen extends StatelessWidget {
                             iconBackgroundColor: ColorsManager.orange.withAlpha(
                               100,
                             ),
-                            onTap: () => context.pushNamed(
-                              Routes.transferScreen,
-                              arguments: transferWalletItems,
-                            ),
+                            onTap: () async {
+                              final result = await context.pushNamed(
+                                Routes.transferScreen,
+                                arguments: transferWalletItems,
+                              );
+                              if (!context.mounted) {
+                                return;
+                              }
+                              if (result == true) {
+                                context.read<HomeCubit>()
+                                  ..getWallets()
+                                  ..getAllTransactions();
+                              }
+                            },
                             iconColor: ColorsManager.orange,
                           ),
                           QuickActionCard(
@@ -144,6 +158,9 @@ class HomeScreen extends StatelessWidget {
                               100,
                             ),
                             iconColor: ColorsManager.orange,
+                            onTap: () => context.pushNamed(
+                              Routes.currencyexchangescreen,
+                            ),
                           ),
                           QuickActionCard(
                             title: 'Bill Payment',

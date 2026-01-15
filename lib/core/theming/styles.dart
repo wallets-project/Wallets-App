@@ -60,7 +60,7 @@ class TextStyles {
     weight: FontWeight.w500,
     color: ColorsManager.blueblode,
   );
-   static final TextStyle blue16bold = _base(
+  static final TextStyle blue16bold = _base(
     size: 16,
     weight: FontWeight.w700,
     color: ColorsManager.blueblode,
@@ -140,5 +140,11 @@ class TextStyles {
     size: 24,
     weight: FontWeight.w700,
     color: ColorsManager.green,
+  );
+
+  static final TextStyle red16Medium = _base(
+    size: 16,
+    weight: FontWeight.w500,
+    color: ColorsManager.read,
   );
 }

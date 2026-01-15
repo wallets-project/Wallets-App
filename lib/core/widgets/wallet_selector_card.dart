@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallets/core/theming/styles.dart';
+import 'package:wallets/core/widgets/selection_bottom_sheet.dart';
 import 'package:wallets/features/wallets/models/wallet_item.dart';
 
 class WalletSelectorCard extends StatelessWidget {
@@ -93,66 +94,14 @@ class WalletSelectorCard extends StatelessWidget {
     required List<WalletItem> wallets,
     required int selectedId,
   }) {
-    return showModalBottomSheet<WalletItem>(
+    return showSelectionBottomSheet<WalletItem>(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
-      ),
-      builder: (context) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(99),
-                    color: Colors.grey.shade300,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Choose Wallet',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(height: 12),
-                Flexible(
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: wallets.length,
-                    separatorBuilder: (_, __) => const Divider(height: 1),
-                    itemBuilder: (context, index) {
-                      final w = wallets[index];
-                      final bool isSelected = w.id == selectedId;
-
-                      return ListTile(
-                        onTap: () => Navigator.pop(context, w),
-                        leading: _WalletIcon(symbol: w.symbol),
-                        title: Text(
-                          w.currencyCode,
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        subtitle: Text('${w.symbol} ${w.formattedBalance}'),
-                        trailing: isSelected
-                            ? const Icon(
-                                Icons.check_circle,
-                                color: Colors.green,
-                              )
-                            : const Icon(Icons.radio_button_off),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+      title: 'Choose Wallet',
+      items: wallets,
+      isSelected: (wallet) => wallet.id == selectedId,
+      leadingBuilder: (wallet) => _WalletIcon(symbol: wallet.symbol),
+      titleBuilder: (wallet) => wallet.currencyCode,
+      subtitleBuilder: (wallet) => '${wallet.symbol} ${wallet.formattedBalance}',
     );
   }
 }

@@ -10,10 +10,6 @@ class ColorsManager {
   static const Color blueblode = Color(0xff181818);
   static const Color lightGreen = Color(0xffA7EAC0);
   static const Color orange = Color(0xffFFB100);
-    static const Color green = Color(0xff16A34A
-);
-
-
-    
-
+  static const Color green = Color(0xff16A34A);
+  static const Color read = Color.fromARGB(255, 252, 0, 0);
 }

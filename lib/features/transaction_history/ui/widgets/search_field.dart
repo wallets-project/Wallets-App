@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({super.key, 
+  const SearchField({
+    super.key,
     required this.controller,
     required this.hintText,
     this.onChanged,
@@ -22,7 +22,7 @@ class SearchField extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

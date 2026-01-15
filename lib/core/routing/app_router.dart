@@ -6,9 +6,11 @@ import 'package:wallets/features/auth/logic/login/cubit/login_cubit.dart';
 import 'package:wallets/features/auth/logic/otp/cubit/otp_cubit.dart';
 import 'package:wallets/features/auth/logic/register/cubit/register_cubit.dart';
 import 'package:wallets/features/auth/ui/login/login_screen.dart';
+import 'package:wallets/features/currency_exchange/ui/currency_exchange_screen.dart';
 import 'package:wallets/features/get_start/ui/get_start_screen.dart';
 import 'package:wallets/features/home/logic/cubit/home_cubit.dart';
 import 'package:wallets/features/home/ui/home_screen.dart';
+import 'package:wallets/features/top_up/ui/top_up_screen.dart';
 import 'package:wallets/features/transaction_history/ui/transaction_history_screen.dart';
 import 'package:wallets/features/onboarding/ui/onboarding_screen.dart';
 import 'package:wallets/features/auth/ui/otp/otp_screen.dart';
@@ -84,6 +86,10 @@ class AppRouter {
             child: TransferScreen(wallets: walletItems),
           ),
         );
+      case Routes.topupScreen:
+        return MaterialPageRoute(builder: (context) => const TopUp());
+          case Routes.currencyexchangescreen:
+        return MaterialPageRoute(builder: (context) => const CurrencyExchangeScreen());
       default:
         return MaterialPageRoute(
           builder: (context) => const Center(child: Text('404 Not Found')),

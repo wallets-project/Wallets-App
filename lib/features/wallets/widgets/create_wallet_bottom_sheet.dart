@@ -64,15 +64,17 @@ class _CreateWalletBottomSheetState extends State<CreateWalletBottomSheet> {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 12,
                     offset: const Offset(0, 6),
                   ),
                 ],
               ),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -153,9 +155,7 @@ class _CreateWalletBottomSheetState extends State<CreateWalletBottomSheet> {
 
   void _submit(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
-      context
-          .read<HomeCubit>()
-          .createWallets(type: _type, currency: _currency);
+      context.read<HomeCubit>().createWallets(type: _type, currency: _currency);
     }
   }
 }
@@ -180,7 +180,9 @@ class _TypeChip extends StatelessWidget {
       label: Text(label),
       selected: isSelected,
       onSelected: (_) => onSelect(value),
-      labelStyle: isSelected ? TextStyles.white16Medium : TextStyles.black14Medium,
+      labelStyle: isSelected
+          ? TextStyles.white16Medium
+          : TextStyles.black14Medium,
       selectedColor: ColorsManager.mainBlue,
       backgroundColor: ColorsManager.grayBackGround,
       shape: RoundedRectangleBorder(

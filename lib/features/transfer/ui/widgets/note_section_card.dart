@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallets/core/theming/styles.dart';
 import 'package:wallets/features/transfer/ui/widgets/transfer_section_card.dart';
