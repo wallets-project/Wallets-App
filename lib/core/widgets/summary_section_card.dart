@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/theming/styles.dart';
 
 class SummarySectionCard extends StatelessWidget {
   const SummarySectionCard({
     super.key,
-    this.title = 'Summary',
-    this.amountLabel = 'Amount',
+    this.title,
+    this.amountLabel,
     this.amountValue = '\$100.00',
-    this.feeLabel = 'Withdrawal Fee',
+    this.feeLabel,
     this.feeValue = '-\$100.00',
-    this.totalLabel = 'You will receive',
+    this.totalLabel,
     this.totalValue = '+\$100.00',
     this.backgroundColor = Colors.white,
     this.borderRadius,
@@ -18,12 +19,12 @@ class SummarySectionCard extends StatelessWidget {
     this.showDivider = true,
   });
 
-  final String title;
-  final String amountLabel;
+  final String? title;
+  final String? amountLabel;
   final String amountValue;
-  final String feeLabel;
+  final String? feeLabel;
   final String feeValue;
-  final String totalLabel;
+  final String? totalLabel;
   final String totalValue;
 
   final Color backgroundColor;
@@ -44,12 +45,15 @@ class SummarySectionCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyles.black16Bold),
+            Text(title ?? 'summary.title'.tr(), style: TextStyles.black16Bold),
             SizedBox(height: 12.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(amountLabel, style: TextStyles.gray16Medium),
+                Text(
+                  amountLabel ?? 'summary.amount'.tr(),
+                  style: TextStyles.gray16Medium,
+                ),
                 Text(amountValue, style: TextStyles.black16Medium),
               ],
             ),
@@ -57,7 +61,10 @@ class SummarySectionCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(feeLabel, style: TextStyles.gray16Medium),
+                Text(
+                  feeLabel ?? 'summary.fee'.tr(),
+                  style: TextStyles.gray16Medium,
+                ),
                 Text(feeValue, style: TextStyles.red16Medium),
               ],
             ),
@@ -70,7 +77,10 @@ class SummarySectionCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(totalLabel, style: TextStyles.black16Bold),
+                Text(
+                  totalLabel ?? 'summary.total'.tr(),
+                  style: TextStyles.black16Bold,
+                ),
                 Text(totalValue, style: TextStyles.green16Medium),
               ],
             ),

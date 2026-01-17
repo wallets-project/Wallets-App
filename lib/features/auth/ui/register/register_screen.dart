@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             arguments: phoneController.text.trim(),
           );
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('تم التسجيل بنجاح يرجى تفيعل الحساب')),
+            SnackBar(content: Text('auth.register_success'.tr())),
           );
         }
         if (state.erorrMesseage != null) {
@@ -54,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Register', style: TextStyles.black20SemiBold),
+            title: Text('auth.register'.tr(), style: TextStyles.black20SemiBold),
             backgroundColor: Colors.white,
           ),
           backgroundColor: ColorsManager.primaryColor,
@@ -65,60 +66,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Sign Up', style: TextStyles.black20SemiBold),
+                  Text('auth.sign_up'.tr(), style: TextStyles.black20SemiBold),
                   SizedBox(height: 7.h),
                   Text(
-                    'Create your wallet account',
+                    'auth.create_wallet_account'.tr(),
                     style: TextStyles.gray16Medium,
                   ),
                   SizedBox(height: 34.h),
                   FieldWidget(
-                    label: 'Full Name',
+                    label: 'form.full_name'.tr(),
                     controller: nameController,
-                    hintText: 'John Doe',
+                    hintText: 'form.full_name_hint'.tr(),
                     prefixIcon: Icons.person_outline_rounded,
                   ),
                   SizedBox(height: 15.h),
-
                   FieldWidget(
-                    label: 'Phone',
+                    label: 'form.phone'.tr(),
                     controller: phoneController,
-                    hintText: '+966 50 123 4567',
+                    hintText: 'form.phone_hint'.tr(),
                     prefixIcon: Icons.phone,
                     keyboardType: TextInputType.phone,
                   ),
                   SizedBox(height: 15.h),
-
                   FieldWidget(
-                    label: 'Email',
+                    label: 'form.email'.tr(),
                     controller: emailController,
-                    hintText: 'john@example.com',
+                    hintText: 'form.email_hint'.tr(),
                     prefixIcon: Icons.email,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 15.h),
-
                   FieldWidget(
-                    label: 'Password',
+                    label: 'form.password'.tr(),
                     controller: passwordController,
-                    hintText: '••••••••',
+                    hintText: 'form.password_hint'.tr(),
                     prefixIcon: Icons.lock_outline,
                     isPassword: true,
                     keyboardType: TextInputType.visiblePassword,
                   ),
                   SizedBox(height: 15.h),
-
                   FieldWidget(
-                    label: 'Confirm Password',
+                    label: 'form.confirm_password'.tr(),
                     controller: passwordController,
-                    hintText: '••••••••',
+                    hintText: 'form.password_hint'.tr(),
                     prefixIcon: Icons.lock_outline,
                     isPassword: true,
                     keyboardType: TextInputType.visiblePassword,
                   ),
                   SizedBox(height: 44.h),
                   MyButton(
-                    text: state.isLoading ? 'Loding . . .' : 'Sign Up',
+                    text: state.isLoading
+                        ? 'common.loading'.tr()
+                        : 'auth.sign_up'.tr(),
                     onPressed: state.isLoading
                         ? null
                         : () {
@@ -130,13 +129,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             );
                           },
                   ),
-
                   SizedBox(height: 32.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Already have an account? ",
+                        'auth.already_have_account'.tr(),
                         style: TextStyles.gray16Medium,
                       ),
                       InkWell(
@@ -144,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           context.pushNamed(Routes.loginScreen);
                         },
                         child: Text(
-                          'Sign In',
+                          'auth.sign_in'.tr(),
                           style: TextStyles.orange16SemiBold,
                         ),
                       ),

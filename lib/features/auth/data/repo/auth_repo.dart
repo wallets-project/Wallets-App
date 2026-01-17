@@ -8,4 +8,8 @@ abstract class AuthRepo {
   });
 
   Future<void> otp({required String phone,required String code,required String purpose});
+
+  // Future<void> resetPassword({required String phone, required String newPassword});
+
+  Future<void> logout();
 }

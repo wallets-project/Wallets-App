@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AppBarHome extends StatelessWidget {
   const AppBarHome({super.key});
@@ -10,7 +11,7 @@ class AppBarHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      title: Text('Dashboard', style: TextStyles.white16Medium),
+      title: Text('common.dashboard'.tr(), style: TextStyles.white16Medium),
       backgroundColor: ColorsManager.blueblode,
       leadingWidth: 72,
       leading: Builder(

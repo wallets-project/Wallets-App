@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/helper/extensions.dart';
 import 'package:wallets/core/routing/route.dart';
 import 'package:wallets/core/theming/colors.dart';
@@ -77,7 +78,7 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 WalletSummarySection(
-                  title: 'Total Balance',
+                  title: 'common.total_balance'.tr(),
                   totalAmountText: '\$ ${total.toStringAsFixed(2)}',
                   totalIcon: Icons.account_balance_wallet_outlined,
                   cards: cards,
@@ -99,10 +100,10 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Quick Actions', style: TextStyles.black16Bold),
+                      Text('common.quick_actions'.tr(), style: TextStyles.black16Bold),
                       SizedBox(height: 18),
-                      QuickActionCard(
-                        title: 'Top Up',
+                        QuickActionCard(
+                        title: 'common.top_up'.tr(),
                         icon: Icons.arrow_circle_up_rounded,
                         onTap: () => context.pushNamed(Routes.topupScreen),
                       ),
@@ -116,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                         childAspectRatio: 2.4,
                         children: [
                           QuickActionCard(
-                            title: 'Transfer',
+                            title: 'common.transfer'.tr(),
                             icon: Icons.arrow_downward,
                             backgroundColor: Colors.white,
                             textStyle: TextStyles.black16Bold,
@@ -140,7 +141,7 @@ class HomeScreen extends StatelessWidget {
                             iconColor: ColorsManager.orange,
                           ),
                           QuickActionCard(
-                            title: 'Withdraw',
+                            title: 'common.withdraw'.tr(),
                             icon: Icons.credit_card,
                             backgroundColor: Colors.white,
                             textStyle: TextStyles.black16Bold,
@@ -148,9 +149,11 @@ class HomeScreen extends StatelessWidget {
                               100,
                             ),
                             iconColor: ColorsManager.orange,
+                            onTap: () =>
+                                context.pushNamed(Routes.withdrawfundsscreen),
                           ),
                           QuickActionCard(
-                            title: 'Exchange',
+                            title: 'common.exchange'.tr(),
                             icon: Icons.sync,
                             backgroundColor: Colors.white,
                             textStyle: TextStyles.black16Bold,
@@ -163,7 +166,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           QuickActionCard(
-                            title: 'Bill Payment',
+                            title: 'common.bill_payment'.tr(),
                             icon: Icons.attach_money,
                             backgroundColor: Colors.white,
                             textStyle: TextStyles.black16Bold,
@@ -171,13 +174,15 @@ class HomeScreen extends StatelessWidget {
                               100,
                             ),
                             iconColor: ColorsManager.orange,
+                            onTap: () =>
+                                context.pushNamed(Routes.billpaymentsscreen),
                           ),
                         ],
                       ),
                       Row(
                         children: [
                           Text(
-                            'Recent Transactions',
+                            'common.recent_transactions'.tr(),
                             style: TextStyles.black16Bold,
                           ),
                           const Spacer(),
@@ -188,7 +193,7 @@ class HomeScreen extends StatelessWidget {
                               );
                             },
                             child: Text(
-                              'View All',
+                              'common.view_all'.tr(),
                               style: TextStyles.orange16SemiBold,
                             ),
                           ),
@@ -198,7 +203,7 @@ class HomeScreen extends StatelessWidget {
                       if (txs.isEmpty)
                         Center(
                           child: Text(
-                            'No transactions found',
+                            'common.no_transactions'.tr(),
                             style: TextStyles.gray14,
                           ),
                         )

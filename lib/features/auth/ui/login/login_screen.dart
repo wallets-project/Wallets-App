@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
           context.pushReplacementNamed(Routes.homeScreen);
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text("تم تسجيل الدخول بنجاح")));
+          ).showSnackBar(SnackBar(content: Text('auth.login_success'.tr())));
         }
         if (state.errorMessage != null) {
           ScaffoldMessenger.of(
@@ -56,43 +57,41 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     SvgPicture.asset('assets/svgs/wallets.svg'),
                     SizedBox(height: 16.h),
-                    Text('Welcome', style: TextStyles.blue20Bold),
+                    Text('auth.welcome'.tr(), style: TextStyles.blue20Bold),
                     SizedBox(height: 8.h),
-                    Text('Login', style: TextStyles.gray16Medium),
+                    Text('auth.login'.tr(), style: TextStyles.gray16Medium),
                     SizedBox(height: 40.h),
                     FieldWidget(
-                      label: 'Phone',
+                      label: 'form.phone'.tr(),
                       controller: phoneController,
-                      hintText: '+966 50 123 4567',
+                      hintText: 'form.phone_hint'.tr(),
                       prefixIcon: Icons.phone,
                       keyboardType: TextInputType.phone,
                     ),
                     SizedBox(height: 24.h),
-
                     FieldWidget(
-                      label: 'Password',
+                      label: 'form.password'.tr(),
                       controller: passwordController,
-                      hintText: '••••••••',
+                      hintText: 'form.password_hint'.tr(),
                       isPassword: true,
                       prefixIcon: Icons.lock,
                       keyboardType: TextInputType.visiblePassword,
                     ),
                     SizedBox(height: 8.h),
-
                     Row(
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         Text(
-                          'Forgot Password?',
+                          'auth.forgot_password'.tr(),
                           style: TextStyles.orange16SemiBold,
                         ),
                       ],
                     ),
                     SizedBox(height: 24.h),
-
                     MyButton(
-                      text: state.isLoading ? 'Loading . . .' : 'Sign In',
-                      // Disable the button while loading; otherwise trigger login directly.
+                      text: state.isLoading
+                          ? 'common.loading'.tr()
+                          : 'auth.sign_in'.tr(),
                       onPressed: state.isLoading
                           ? null
                           : () {
@@ -103,17 +102,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                     ),
                     SizedBox(height: 40.h),
-
                     InkWell(
                       onTap: () => context.pushNamed(Routes.registerScreen),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Dont't have an account? ",
+                            'auth.no_account'.tr(),
                             style: TextStyles.gray16Medium,
                           ),
-                          Text('Sign Up', style: TextStyles.orange16SemiBold),
+                          Text(
+                            'auth.sign_up'.tr(),
+                            style: TextStyles.orange16SemiBold,
+                          ),
                         ],
                       ),
                     ),

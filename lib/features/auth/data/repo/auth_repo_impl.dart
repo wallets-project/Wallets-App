@@ -101,4 +101,14 @@ class AuthRepoImpl implements AuthRepo {
     }
     return null;
   }
+
+  @override
+  Future<void> logout() async { 
+    await api.post(
+      '${ApiConstants.baseApiUrl}/api/v1/auth/logout',
+    );
+    await tokenStorage.clearToken();
+    await userStorage.clearUser(); 
+    
+  }
 }

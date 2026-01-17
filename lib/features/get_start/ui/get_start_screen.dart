@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/helper/extensions.dart';
 import 'package:wallets/core/routing/route.dart';
 import 'package:wallets/core/theming/colors.dart';
@@ -25,13 +26,13 @@ class GetStartScreen extends StatelessWidget {
                 SvgPicture.asset('assets/svgs/wallets.svg'),
                 SizedBox(height: 24.h),
                 Text(
-                  'Secure Digital Wallet',
+                  'get_start.title'.tr(),
                   style: TextStyles.blue16Medium,
                 ),
                 SizedBox(height: 12.h),
 
                 Text(
-                  'Fast, secure, and reliable hybrid wallet for all your financial needs',
+                  'get_start.subtitle'.tr(),
                   style: TextStyles.gray16Medium,
                   textAlign: TextAlign.center,
                 ),
@@ -39,24 +40,24 @@ class GetStartScreen extends StatelessWidget {
 
                 InfoDetailes(
                   image: 'assets/svgs/v1.svg',
-                  title: 'Secure & Safe',
-                  des: 'Bank-level security for all your transactions',
+                  title: 'get_start.feature_secure_title'.tr(),
+                  des: 'get_start.feature_secure_desc'.tr(),
                 ),
                 InfoDetailes(
                   image: 'assets/svgs/v2.svg',
-                  title: 'Fast Transfers',
-                  des: 'Instant transfers to any wallet worldwide',
+                  title: 'get_start.feature_fast_title'.tr(),
+                  des: 'get_start.feature_fast_desc'.tr(),
                 ),
                 InfoDetailes(
                   image: 'assets/svgs/v3.svg',
-                  title: 'Multi-Currency',
-                  des: 'Support for multiple currencies and exchanges',
+                  title: 'get_start.feature_multi_title'.tr(),
+                  des: 'get_start.feature_multi_desc'.tr(),
                 ),
 
                 SizedBox(height: 25.h),
                 MyButton(
                   onPressed: () => context.pushNamed(Routes.loginScreen),
-                  text: 'Get Start',
+                  text: 'get_start.get_start'.tr(),
                 ),
               ],
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
 import 'package:wallets/core/widgets/my_button.dart';
@@ -106,7 +107,7 @@ class _TransferScreenState extends State<TransferScreen> {
           backgroundColor: ColorsManager.primaryColor,
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Text('Transfer Money', style: TextStyles.blue16bold),
+            title: Text('common.transfer_money'.tr(), style: TextStyles.blue16bold),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -136,7 +137,11 @@ class _TransferScreenState extends State<TransferScreen> {
                   AmountSectionCard(
                     controller: amountController,
                     availableText:
-                        'Available: \$${state.availableBalance.toStringAsFixed(2)}',
+                        'transfer.available_balance'.tr(
+                      namedArgs: {
+                        'amount': '\$${state.availableBalance.toStringAsFixed(2)}',
+                      },
+                    ),
                     onChanged: transferCubit.onAmountChanged,
                   ),
 
@@ -150,7 +155,9 @@ class _TransferScreenState extends State<TransferScreen> {
                   SizedBox(height: 18.h),
 
                   MyButton(
-                    text: state.isSubmitting ? 'Processing...' : 'Continue',
+                    text: state.isSubmitting
+                        ? 'common.processing'.tr()
+                        : 'common.continue'.tr(),
                     onPressed: state.isValid
                         ? () => transferCubit.submit()
                         : () {},

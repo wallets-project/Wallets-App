@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
 import 'package:wallets/features/home/logic/cubit/home_cubit.dart';
@@ -33,7 +34,7 @@ class WalletsSCreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorsManager.primaryColor,
       appBar: AppBar(
-        title: Text('Wallets', style: TextStyles.blue20Bold),
+        title: Text('common.wallets'.tr(), style: TextStyles.blue20Bold),
         backgroundColor: Colors.white,
       ),
       body: BlocConsumer<HomeCubit, HomeState>(
@@ -60,7 +61,7 @@ class WalletsSCreen extends StatelessWidget {
 
           final data = walletsResponse.data;
           if (data == null || data.wallets.isEmpty) {
-            return const Center(child: Text('No wallets found'));
+            return Center(child: Text('common.no_wallets'.tr()));
           }
 
           final total = data.totalBalanceUSD ?? 0.0;
@@ -72,17 +73,17 @@ class WalletsSCreen extends StatelessWidget {
               child: Column(
                 children: [
                   TotalBalanceCard(
-                    title: 'Total Balance',
+                    title: 'common.total_balance'.tr(),
                     totalText: '\$ ${total.toStringAsFixed(2)}',
                     changeText: '+${trans.toStringAsFixed(2)}%',
-                    compareText: 'vs last month',
+                    compareText: 'wallets.vs_last_month'.tr(),
                     icon: Icons.trending_up,
                   ),
 
                   SizedBox(height: 24.h),
 
                   ...data.wallets.map((w) {
-                    final name = w.currencyName ?? 'Wallet';
+                    final name = w.currencyName ?? 'wallets.wallet_fallback'.tr();
                     final code = w.currency ?? '';
                     final amount = w.balance ?? 0.0;
                     final lastAmount = w.lastIncomingTransfer;
@@ -111,7 +112,7 @@ class WalletsSCreen extends StatelessWidget {
                   SizedBox(height: 24.h),
 
                   AddWalletTile(
-                    title: 'Add Wallet',
+                    title: 'wallets.add_wallet'.tr(),
                     onTap: () => onAddWalletTap(context),
                   ),
                 ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
 import 'package:wallets/features/home/logic/cubit/home_cubit.dart';
@@ -44,7 +45,7 @@ class _CreateWalletBottomSheetState extends State<CreateWalletBottomSheet> {
             const SizedBox(height: 16),
             Row(
               children: [
-                Text('Create Wallet', style: TextStyles.blue20Bold),
+                Text('common.create_wallet'.tr(), style: TextStyles.blue20Bold),
                 const Spacer(),
                 IconButton(
                   icon: const Icon(Icons.close_rounded),
@@ -54,7 +55,7 @@ class _CreateWalletBottomSheetState extends State<CreateWalletBottomSheet> {
             ),
             const SizedBox(height: 4),
             Text(
-              'Choose a type and currency to spin up a new wallet.',
+              'wallets.create_wallet_desc'.tr(),
               style: TextStyles.gray14,
             ),
             const SizedBox(height: 16),
@@ -80,19 +81,22 @@ class _CreateWalletBottomSheetState extends State<CreateWalletBottomSheet> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Wallet Type', style: TextStyles.black16Medium),
+                      Text(
+                        'common.wallet_type'.tr(),
+                        style: TextStyles.black16Medium,
+                      ),
                       const SizedBox(height: 10),
                       Wrap(
                         spacing: 10,
                         children: [
                           _TypeChip(
-                            label: 'Main',
+                            label: 'wallets.type_main'.tr(),
                             value: 'main',
                             selectedValue: _type,
                             onSelect: (v) => setState(() => _type = v),
                           ),
                           _TypeChip(
-                            label: 'Saving',
+                            label: 'wallets.type_saving'.tr(),
                             value: 'saving',
                             selectedValue: _type,
                             onSelect: (v) => setState(() => _type = v),
@@ -112,7 +116,7 @@ class _CreateWalletBottomSheetState extends State<CreateWalletBottomSheet> {
                         ],
                         onChanged: (v) => setState(() => _currency = v!),
                         decoration: InputDecoration(
-                          labelText: 'Currency',
+                          labelText: 'wallets.currency'.tr(),
                           prefixIcon: const Icon(Icons.public),
                           filled: true,
                           fillColor: ColorsManager.grayBackGround,
@@ -144,7 +148,7 @@ class _CreateWalletBottomSheetState extends State<CreateWalletBottomSheet> {
                   ),
                 ),
                 onPressed: () => _submit(context),
-                child: const Text('Create Wallet'),
+                child: Text('common.create_wallet'.tr()),
               ),
             ),
           ],

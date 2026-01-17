@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/helper/extensions.dart';
 import 'package:wallets/core/routing/route.dart';
 import 'package:wallets/core/theming/colors.dart';
@@ -54,7 +55,7 @@ class _OtpScreenState extends State<OtpScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Register', style: TextStyles.blue20Bold),
+            title: Text('auth.register'.tr(), style: TextStyles.blue20Bold),
             backgroundColor: Colors.white,
           ),
           backgroundColor: ColorsManager.primaryColor,
@@ -66,10 +67,10 @@ class _OtpScreenState extends State<OtpScreen> {
                 children: [
                   SvgPicture.asset('assets/svgs/v4.svg'),
                   SizedBox(height: 16.h),
-                  Text('Enter OTP', style: TextStyles.blue16Medium),
+                  Text('auth.enter_otp'.tr(), style: TextStyles.blue16Medium),
                   SizedBox(height: 8.h),
                   Text(
-                    'OTP sent to your phone',
+                    'auth.otp_sent'.tr(),
                     style: TextStyles.gray16Medium,
                   ),
                   SizedBox(height: 8.h),
@@ -87,7 +88,9 @@ class _OtpScreenState extends State<OtpScreen> {
                     valueListenable: isComplete,
                     builder: (context, enabled, _) {
                       return MyButton(
-                        text: state.isLoading ? 'Verifying...' : 'Verify',
+                        text: state.isLoading
+                            ? 'auth.verifying'.tr()
+                            : 'auth.verify'.tr(),
                         onPressed: state.isLoading || !enabled || phone == null
                             ? null
                             : () => _verify(phone),
@@ -100,13 +103,13 @@ class _OtpScreenState extends State<OtpScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Didn't receive the code? ",
+                        'auth.did_not_receive_code'.tr(),
                         style: TextStyles.gray16Medium,
                       ),
                       InkWell(
                         onTap: () {},
                         child: Text(
-                          'Resend OTP',
+                          'auth.resend_otp'.tr(),
                           style: TextStyles.orange16SemiBold,
                         ),
                       ),

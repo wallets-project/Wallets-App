@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,25 +19,27 @@ class OnboardingScreen extends StatelessWidget {
           children: [
             SvgPicture.asset('assets/svgs/wallets.svg'),
             SizedBox(height: 24.h),
-            Text('Select Language', style: TextStyles.blue16Medium),
-            SizedBox(height: 8.h),
-            Text('اختر اللغة', style: TextStyles.blue16Medium),
+            Text(
+              'onboarding.select_language'.tr(),
+              style: TextStyles.blue16Medium,
+            ),
             SizedBox(height: 16.h),
             Text(
-              'Choose your preferred language',
+              'onboarding.choose_language'.tr(),
               style: TextStyles.gray16Medium,
             ),
             SizedBox(height: 48.h),
             CardLanguage(
-              lang: "English",
-              cuntry: "United States",
+              lang: 'onboarding.english'.tr(),
+              cuntry: 'onboarding.united_states'.tr(),
               image: 'assets/svgs/us.svg',
+              locale: const Locale('en'),
             ),
-
             CardLanguage(
-              lang: "العربية",
-              cuntry: "فلسطين",
+              lang: 'onboarding.arabic'.tr(),
+              cuntry: 'onboarding.palestine'.tr(),
               image: 'assets/svgs/ps.svg',
+              locale: const Locale('ar'),
             ),
           ],
         ),

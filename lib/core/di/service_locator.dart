@@ -9,10 +9,14 @@ import 'package:wallets/features/auth/data/repo/auth_repo.dart';
 import 'package:wallets/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:wallets/features/auth/logic/login/cubit/login_cubit.dart';
 import 'package:wallets/features/auth/logic/otp/cubit/otp_cubit.dart';
+import 'package:wallets/features/auth/logic/logout/cubit/logout_cubit.dart';
 import 'package:wallets/features/auth/logic/register/cubit/register_cubit.dart';
 import 'package:wallets/features/home/data/repo/home_repo.dart';
 import 'package:wallets/features/home/data/repo/home_repo_impl.dart';
 import 'package:wallets/features/home/logic/cubit/home_cubit.dart';
+import 'package:wallets/features/profile/data/repo/profile_repo.dart';
+import 'package:wallets/features/profile/data/repo/profile_repo_impl.dart';
+import 'package:wallets/features/profile/logic/cubit/profile_cubit.dart';
 import 'package:wallets/features/transfer/data/repo/transfer_repo.dart';
 import 'package:wallets/features/transfer/data/repo/transfer_repo_impl.dart';
 import 'package:wallets/features/transfer/logic/cubit/transfer_cubit.dart';
@@ -46,11 +50,14 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerSingleton<HomeRepo>(HomeRepoImpl(getIt()));
   getIt.registerLazySingleton<TransferRepo>(() => TransferRepoImpl(getIt()));
+  getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(getIt()));
 
   // 6) Cubits (factory)
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
   getIt.registerFactory<OtpCubit>(() => OtpCubit(getIt()));
+  getIt.registerFactory<LogoutCubit>(() => LogoutCubit(getIt()));
   getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
   getIt.registerFactory<TransferCubit>(() => TransferCubit(getIt()));
+  getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt(), getIt()));
 }

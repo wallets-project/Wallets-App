@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/theming/styles.dart';
 import 'package:wallets/features/transfer/data/models/recipient_model.dart';
 import 'package:wallets/features/transfer/ui/widgets/recipient_tile.dart';
@@ -29,14 +30,14 @@ class RecipientSectionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Recipient', style: TextStyles.black16Medium),
+          Text('common.recipient'.tr(), style: TextStyles.black16Medium),
           SizedBox(height: 8.h),
           TextField(
             controller: controller,
             onChanged: onChanged,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
-              hintText: 'Search by phone or wallet ID',
+              hintText: 'transfer.search_recipient'.tr(),
               hintStyle: TextStyles.gray14,
               prefixIcon: const Icon(Icons.search),
               border: OutlineInputBorder(
@@ -51,7 +52,7 @@ class RecipientSectionCard extends StatelessWidget {
             style: TextStyles.black16Bold,
           ),
           SizedBox(height: 8.h),
-          Text('Recipients', style: TextStyles.gray12Medium),
+          Text('common.recipients'.tr(), style: TextStyles.gray12Medium),
           SizedBox(height: 12.h),
           if (isLoading)
             const Center(child: CircularProgressIndicator())
@@ -60,7 +61,7 @@ class RecipientSectionCard extends StatelessWidget {
           else if (recipients.isEmpty)
             Center(
               child: Text(
-                'No recipients found',
+                'transfer.no_recipients'.tr(),
                 style: TextStyles.gray12Medium,
               ),
             )

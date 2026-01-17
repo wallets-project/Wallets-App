@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
 import 'package:wallets/core/widgets/my_button.dart';
 import 'package:wallets/core/widgets/secure_withdrawal_card.dart';
 import 'package:wallets/core/widgets/selection_bottom_sheet.dart';
+import 'package:wallets/features/currency_exchange/ui/widgets/exchange_rate_card.dart';
 import 'package:wallets/features/currency_exchange/ui/widgets/exchange_wallet_card.dart';
 import 'package:wallets/features/wallets/models/wallet_item.dart';
 
@@ -27,7 +29,7 @@ class CurrencyExchangeScreen extends StatefulWidget {
 class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
   late final List<WalletItem> _availableWallets;
   late WalletItem _fromWallet;
-  late WalletItem _toWallet;      
+  late WalletItem _toWallet;
 
   @override
   void initState() {
@@ -47,22 +49,24 @@ class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
       backgroundColor: ColorsManager.primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('Currency Exchange', style: TextStyles.blue16bold),
+        title: Text('common.currency_exchange'.tr(), style: TextStyles.blue16bold),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.w),
         child: Column(
           children: [
             ExchangeWalletCard(
-              title: 'From Wallet',
+              title: 'exchange.from_wallet'.tr(),
               currencyCode: _fromWallet.currencyCode,
               currencySymbol: _fromWallet.symbol,
               currencyBalanceText:
                   '${_fromWallet.symbol} ${_fromWallet.formattedBalance}',
-              amountLabel: 'Amount',
+              amountLabel: 'exchange.amount'.tr(),
               amountValue: '0.00',
               amountPrefix: '${_fromWallet.symbol} ',
-              availableLabel: 'Available: ${_fromWallet.symbol}',
+              availableLabel: 'exchange.available_label'.tr(
+                namedArgs: {'symbol': _fromWallet.symbol},
+              ),
               availableValue: _fromWallet.formattedBalance,
               iconBackgroundColor: Colors.black,
               iconTextColor: Colors.white,
@@ -82,12 +86,12 @@ class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
             const _SwapCurrencyButton(),
             SizedBox(height: 12.h),
             ExchangeWalletCard(
-              title: 'To Wallet',
+              title: 'exchange.to_wallet'.tr(),
               currencyCode: _toWallet.currencyCode,
               currencySymbol: _toWallet.symbol,
               currencyBalanceText:
                   '${_toWallet.symbol} ${_toWallet.formattedBalance}',
-              amountLabel: 'Converted Amount',
+              amountLabel: 'exchange.converted_amount'.tr(),
               amountValue: '0.00 ${_toWallet.currencyCode}',
               isAmountEditable: false,
               iconBackgroundColor: ColorsManager.orange,
@@ -105,9 +109,15 @@ class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
               },
             ),
             SizedBox(height: 24.h),
-            SecureWithdrawalCard(),
+            ExchangeRateCard(fromWallet: _fromWallet, toWallet: _toWallet),
+           
             SizedBox(height: 24.h),
-            MyButton(text: 'Continue', onPressed: () {}),
+            SecureWithdrawalCard(
+              title: 'withdraw.secure_withdrawal_title'.tr(),
+              message: 'withdraw.secure_withdrawal_message'.tr(),
+            ),
+            SizedBox(height: 24.h),
+            MyButton(text: 'common.continue'.tr(), onPressed: () {}),
           ],
         ),
       ),
@@ -122,7 +132,7 @@ Future<WalletItem?> _showCurrencySheet(
 }) {
   return showSelectionBottomSheet<WalletItem>(
     context: context,
-    title: 'Choose Currency',
+    title: 'exchange.choose_currency'.tr(),
     items: wallets,
     isSelected: (wallet) => wallet.id == selectedId,
     leadingBuilder: (wallet) => _CurrencyIcon(symbol: wallet.symbol),

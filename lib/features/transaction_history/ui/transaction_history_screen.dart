@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/helper/utils/transaction_utils.dart';
 import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
@@ -31,7 +32,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transaction History', style: TextStyles.blue16bold),
+        title: Text('common.transaction_history'.tr(), style: TextStyles.blue16bold),
         backgroundColor: Colors.white,
       ),
       backgroundColor: ColorsManager.primaryColor,
@@ -68,6 +69,9 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
               children: [
                 TransactionSearchFilterBar(
                   searchController: _searchController,
+                  searchHint: 'transactions.search_hint'.tr(),
+                  filtersLabel: 'transactions.filters'.tr(),
+                  dateRangeLabel: 'transactions.date_range'.tr(),
                   onSearchChanged: (q) {
                     // TODO: filter list / call cubit
                   },
@@ -79,13 +83,13 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                   },
                 ),
                 SizedBox(height: 21.h),
-                Text('All Transactions', style: TextStyles.black16Medium),
+                Text('common.all_transactions'.tr(), style: TextStyles.black16Medium),
                 SizedBox(height: 16.h),
                 Expanded(
                   child: es.isEmpty
                       ? Center(
                           child: Text(
-                            'No transactions found',
+                            'common.no_transactions'.tr(),
                             style: TextStyles.gray14,
                           ),
                         )

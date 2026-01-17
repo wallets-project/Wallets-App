@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/theming/styles.dart';
 import 'package:wallets/core/widgets/selection_bottom_sheet.dart';
 import 'package:wallets/features/wallets/models/wallet_item.dart';
@@ -10,13 +11,13 @@ class WalletSelectorCard extends StatelessWidget {
     required this.wallets,
     required this.selectedWallet,
     required this.onWalletChanged,
-    this.title = 'Select Wallet',
+    this.title,
   });
 
   final List<WalletItem> wallets;
   final WalletItem selectedWallet;
   final ValueChanged<WalletItem> onWalletChanged;
-  final String title;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,10 @@ class WalletSelectorCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyles.black16Medium),
+          Text(
+            title ?? 'common.select_wallet'.tr(),
+            style: TextStyles.black16Medium,
+          ),
            SizedBox(height: 10.h),
           InkWell(
             borderRadius: BorderRadius.circular(12.r),
@@ -96,7 +100,7 @@ class WalletSelectorCard extends StatelessWidget {
   }) {
     return showSelectionBottomSheet<WalletItem>(
       context: context,
-      title: 'Choose Wallet',
+      title: 'common.choose_wallet'.tr(),
       items: wallets,
       isSelected: (wallet) => wallet.id == selectedId,
       leadingBuilder: (wallet) => _WalletIcon(symbol: wallet.symbol),

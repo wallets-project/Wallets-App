@@ -12,6 +12,11 @@ class Routes {
   static const String transactionHistoryScreen = '/transactionHistoryScreen';
   static const String transferScreen = '/transferScreen';
   static const String topupScreen = '/topupScreen';
-    static const String currencyexchangescreen = '/currencyExhangeScreen';
-
+  static const String currencyexchangescreen = '/currencyExhangeScreen';
+  static const String withdrawfundsscreen = '/withdrawFundsScreen';
+  static const String billpaymentsscreen = '/billPaymentsScreen';
+  static const String selectproviderscreen = '/selectProviderScreen';
+  static const String billpaymentdetailsscreen = '/billPaymentDetailsScreen';
+  static const String profilescreen = '/ProfileScreen';
+  static const String editprofilescreen = '/editProfileScreen';
 }

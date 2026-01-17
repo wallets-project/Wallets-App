@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:wallets/core/theming/colors.dart';
 import 'package:wallets/core/theming/styles.dart';
 import 'package:wallets/core/widgets/Summary_section_card.dart';
@@ -18,7 +19,7 @@ class TopUp extends StatelessWidget {
       backgroundColor: ColorsManager.primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('Withdraw Funds', style: TextStyles.blue16bold),
+        title: Text('common.top_up'.tr(), style: TextStyles.blue16bold),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -38,16 +39,21 @@ class TopUp extends StatelessWidget {
               SizedBox(height: 24.h),
               AmountSectionCard(
                 controller: TextEditingController(),
-                availableText: 'Available: \$100.00',
+                availableText: 'transfer.available_balance'.tr(
+                  namedArgs: {'amount': '\$100.00'},
+                ),
                 onChanged: (value) {},
               ),
               SizedBox(height: 24.h),
               SummarySectionCard(),
               SizedBox(height: 24.h),
-              SecureWithdrawalCard(),
+              SecureWithdrawalCard(
+                title: 'withdraw.secure_withdrawal_title'.tr(),
+                message: 'withdraw.secure_withdrawal_message'.tr(),
+              ),
               SizedBox(height: 24.h),
 
-              MyButton(text: 'Continue', onPressed: () {}),
+              MyButton(text: 'common.continue'.tr(), onPressed: () {}),
             ],
           ),
         ),
